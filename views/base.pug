@@ -9,7 +9,7 @@ html(lang="en")
       link(rel="stylesheet", href="/css/skeleton.css")
       link(rel="shortcut icon", type="image/png", href="/img/favicon.png")
           
-  body
+  body(date-alert=`${alert ? alert : ""}`)
     //-Header
     include _header
     
@@ -21,7 +21,6 @@ html(lang="en")
     //-Footer
     include _footer
     script(src="https://js.stripe.com/v3/")
-    script(src='/js/skeleton.js')
     script(src='/js/bundle.js')
     
     

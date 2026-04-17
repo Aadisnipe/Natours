@@ -11,6 +11,15 @@ exports.getOverView = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.alerts = (req, res, next) => {
+  const { alert } = req.query;
+  if (alert === 'booking') {
+    res.locals.alert =
+      'Your booking was successful! check your email for confirmation, if book tour is not visible, please refresh the page';
+  }
+  next();
+};
+
 exports.getTour = catchAsync(async (req, res, next) => {
   //1) get the data for the requested tour (include reviews and tour guide)
   const tour = await Tour.findOne({ slug: req.params.slug }).populate({
