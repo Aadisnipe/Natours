@@ -16,6 +16,7 @@ const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 const viewRouter = require('./routes/viewRoutes');
+const bookingController = require('./controllers/bookingController');
 
 //MiddleWare
 const app = express();
@@ -70,6 +71,13 @@ app.use(
     },
   }),
 ); //This return a function which listen for the event
+//stripe checkout session
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  bookingController.webHookCheckout,
+);
+
 //To convert to json object
 app.use(express.json({ limit: '10kb' }));
 //parse cookie from req object
