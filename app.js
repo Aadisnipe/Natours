@@ -52,6 +52,7 @@ app.use(
           'https://*.googleapis.com',
           'https://*.gstatic.com',
           'https://cdn.jsdelivr.net',
+          'https://natours-1-sjid.onrender.com',
         ],
 
         imgSrc: [
