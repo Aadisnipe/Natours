@@ -48,11 +48,11 @@ app.use(
           "'self'",
           'ws:',
           'wss:',
-          'https://api.stripe.com', // ✅ Stripe API
+          'https://api.stripe.com',
           'https://*.googleapis.com',
           'https://*.gstatic.com',
           'https://cdn.jsdelivr.net',
-          'https://natours-1-sjid.onrender.com',
+          'https://*.onrender.com',
         ],
 
         imgSrc: [
