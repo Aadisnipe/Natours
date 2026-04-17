@@ -8,6 +8,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
+const cors = require('cors');
 const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 const tourRouter = require('./routes/tourRoutes');
@@ -97,6 +98,9 @@ const limiter = rateLimit({
   message: 'Too many Request From this Ip please try again after an hour',
 });
 app.use('/api', limiter);
+
+app.use(cors());
+app.options('*', cors());
 //Global MIDDLEWARE
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
