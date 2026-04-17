@@ -5,7 +5,6 @@ import { displayMap } from './mapbox';
 import { updateSetting } from './updateSettings';
 import { bookTour } from './stripe';
 import { showAlert } from './alert';
-
 const mapBox = document.getElementById('map');
 const loginForm = document.querySelector('.form-user-login');
 const userData = document.querySelector('.form-user-data');
