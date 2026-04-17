@@ -3,16 +3,21 @@
 let mapElement;
 let locationsData;
 
-// 👉 Called from your app (after DOM loads)
 export const displayMap = (mapEl) => {
   if (!mapEl) return;
 
   mapElement = mapEl;
   locationsData = JSON.parse(mapEl.dataset.locations);
+
+  const waitForMaps = setInterval(() => {
+    if (typeof google !== 'undefined' && google.maps) {
+      clearInterval(waitForMaps);
+      initMap();
+    }
+  }, 100);
 };
 
-// 👉 MUST be global for Google Maps
-window.initMap = function () {
+function initMap() {
   if (!mapElement || !locationsData) return;
 
   const map = new google.maps.Map(mapElement, {
@@ -23,18 +28,227 @@ window.initMap = function () {
     },
     disableDefaultUI: true,
     styles: [
-      { elementType: 'geometry', stylers: [{ color: '#f5f5f5' }] },
-      { elementType: 'labels.icon', stylers: [{ visibility: 'off' }] },
-      { elementType: 'labels.text.fill', stylers: [{ color: '#616161' }] },
+      {
+        elementType: 'geometry',
+        stylers: [
+          {
+            color: '#f5f5f5',
+          },
+        ],
+      },
+      {
+        elementType: 'labels.icon',
+        stylers: [
+          {
+            visibility: 'off',
+          },
+        ],
+      },
+      {
+        elementType: 'labels.text.fill',
+        stylers: [
+          {
+            color: '#616161',
+          },
+        ],
+      },
       {
         elementType: 'labels.text.stroke',
-        stylers: [{ color: '#f5f5f5' }],
+        stylers: [
+          {
+            color: '#f5f5f5',
+          },
+        ],
+      },
+      {
+        featureType: 'administrative.land_parcel',
+        elementType: 'labels.text.fill',
+        stylers: [
+          {
+            color: '#bdbdbd',
+          },
+        ],
+      },
+      {
+        featureType: 'poi',
+        elementType: 'geometry',
+        stylers: [
+          {
+            color: '#eeeeee',
+          },
+        ],
+      },
+      {
+        featureType: 'poi',
+        elementType: 'labels.text',
+        stylers: [
+          {
+            visibility: 'off',
+          },
+        ],
+      },
+      {
+        featureType: 'poi',
+        elementType: 'labels.text.fill',
+        stylers: [
+          {
+            color: '#757575',
+          },
+        ],
+      },
+      {
+        featureType: 'poi.business',
+        stylers: [
+          {
+            visibility: 'off',
+          },
+        ],
+      },
+      {
+        featureType: 'poi.park',
+        elementType: 'geometry',
+        stylers: [
+          {
+            color: '#e5e5e5',
+          },
+        ],
+      },
+      {
+        featureType: 'poi.park',
+        elementType: 'labels.text.fill',
+        stylers: [
+          {
+            color: '#9e9e9e',
+          },
+        ],
+      },
+      {
+        featureType: 'road',
+        elementType: 'geometry',
+        stylers: [
+          {
+            color: '#ffffff',
+          },
+        ],
+      },
+      {
+        featureType: 'road',
+        elementType: 'labels.icon',
+        stylers: [
+          {
+            visibility: 'off',
+          },
+        ],
+      },
+      {
+        featureType: 'road.arterial',
+        stylers: [
+          {
+            visibility: 'off',
+          },
+        ],
+      },
+      {
+        featureType: 'road.arterial',
+        elementType: 'labels.text.fill',
+        stylers: [
+          {
+            color: '#757575',
+          },
+        ],
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'geometry',
+        stylers: [
+          {
+            color: '#dadada',
+          },
+        ],
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'labels',
+        stylers: [
+          {
+            visibility: 'off',
+          },
+        ],
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'labels.text.fill',
+        stylers: [
+          {
+            color: '#616161',
+          },
+        ],
+      },
+      {
+        featureType: 'road.local',
+        stylers: [
+          {
+            visibility: 'off',
+          },
+        ],
+      },
+      {
+        featureType: 'road.local',
+        elementType: 'labels.text.fill',
+        stylers: [
+          {
+            color: '#9e9e9e',
+          },
+        ],
+      },
+      {
+        featureType: 'transit',
+        stylers: [
+          {
+            visibility: 'off',
+          },
+        ],
+      },
+      {
+        featureType: 'transit.line',
+        elementType: 'geometry',
+        stylers: [
+          {
+            color: '#e5e5e5',
+          },
+        ],
+      },
+      {
+        featureType: 'transit.station',
+        elementType: 'geometry',
+        stylers: [
+          {
+            color: '#eeeeee',
+          },
+        ],
+      },
+      {
+        featureType: 'water',
+        elementType: 'geometry',
+        stylers: [
+          {
+            color: '#c9c9c9',
+          },
+        ],
+      },
+      {
+        featureType: 'water',
+        elementType: 'labels.text.fill',
+        stylers: [
+          {
+            color: '#9e9e9e',
+          },
+        ],
       },
     ],
   });
 
   const bounds = new google.maps.LatLngBounds();
-
   const sortedLocations = [...locationsData].sort((a, b) => a.day - b.day);
 
   sortedLocations.forEach((loc) => {
@@ -43,7 +257,7 @@ window.initMap = function () {
 
     const marker = new google.maps.Marker({
       position: { lat, lng },
-      map: map,
+      map,
     });
 
     const infoWindow = new google.maps.InfoWindow({
@@ -53,21 +267,13 @@ window.initMap = function () {
       maxWidth: 170,
     });
 
-    marker.addListener('mouseover', () => {
-      infoWindow.open(map, marker);
-    });
-
-    marker.addListener('mouseout', () => {
-      infoWindow.close();
-    });
+    marker.addListener('mouseover', () => infoWindow.open(map, marker));
+    marker.addListener('mouseout', () => infoWindow.close());
 
     bounds.extend({ lat, lng });
   });
 
-  if (sortedLocations.length > 1) {
-    map.fitBounds(bounds, 100);
-  } else {
-    map.setCenter(bounds.getCenter());
-    map.setZoom(12);
-  }
-};
+  sortedLocations.length > 1
+    ? map.fitBounds(bounds, 100)
+    : (map.setCenter(bounds.getCenter()), map.setZoom(12));
+}

@@ -1,7 +1,7 @@
-extends 
+extends base
 
 block append head 
-  script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1sSAjnundT0ilMEGSwcG15UmnJ0rlKXM&loading=async&libraries=places&callback=initMap")
+  script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1sSAjnundT0ilMEGSwcG15UmnJ0rlKXM&loading=async&libraries=places&async&libraries=places")
  
 mixin overviewBox(label , text , icon)
   .overview-box__detail 
