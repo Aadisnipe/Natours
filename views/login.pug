@@ -1,7 +1,12 @@
 extends base
 
 block content
-  main.main
+  //-Skeleton Loader
+  div(data-skeleton)
+    include _skeleton-login
+
+  //-Actual content
+  main.main(class="hide-while-loading")
     .login-form
       h2.heading-secondary.ma-bt-lg Log into your account
       form.form.form-user-login

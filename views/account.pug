@@ -8,7 +8,12 @@ mixin navItem(link, text, icon, active)
       | #{text}
 
 block content
-  main.main
+  //-Skeleton Loader
+  div(data-skeleton)
+    include _skeleton-account
+
+  //-Actual content
+  main.main(class="hide-while-loading")
     .user-view
       nav.user-view__menu
         ul.side-nav

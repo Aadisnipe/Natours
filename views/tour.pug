@@ -1,10 +1,10 @@
 extends base
 
-block append head 
+block append head
   script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1sSAjnundT0ilMEGSwcG15UmnJ0rlKXM&loading=async&libraries=places&async&libraries=places")
- 
+
 mixin overviewBox(label , text , icon)
-  .overview-box__detail 
+  .overview-box__detail
     svg.overview-box__icon
       use(xlink:href=`/img/icons.svg#icon-${icon}`)
     span.overview-box__label= label
@@ -24,7 +24,12 @@ mixin reviewCard(review)
       //-   use(xlink:href='/img/icons.svg#icon-star')
 
 block content
-  section.section-header
+  //-Skeleton Loader
+  div(data-skeleton)
+    include _skeleton-tour
+
+  //-Actual content
+  section.section-header(class="hide-while-loading")
     .header__hero
       .header__hero-overlay &nbsp;
       img.header__hero-img(src=`/img/tours/${tour.imageCover}`, alt=tour.name)
@@ -44,7 +49,7 @@ block content
             use(xlink:href='/img/icons.svg#icon-map-pin')
           span.heading-box__text=tour.startLocation.description
 
-  section.section-description
+  section.section-description(class="hide-while-loading")
     .overview-box
       div
         .overview-box__group
@@ -73,19 +78,19 @@ block content
       each p in paragraph
         p.description__text=p
 
-  section.section-pictures
+  section.section-pictures(class="hide-while-loading")
     each img,i in tour.images
       .picture-box
         img.picture-box__img(src=`/img/tours/${img}`, alt=`The Park Camper Tour ${i+1}`,class=`picture-box__img--${1+i}`)
 
 
-  section.section-map
+  section.section-map(class="hide-while-loading")
     #map(data-locations=`${JSON.stringify(tour.locations)}`)
-  section.section-reviews
+  section.section-reviews(class="hide-while-loading")
     .reviews
       each review in tour.reviews
         +reviewCard(review)
-  section.section-cta
+  section.section-cta(class="hide-while-loading")
     .cta
       .cta__img.cta__img--logo
         img(src='/img/logo-white.png', alt='Natours logo')
