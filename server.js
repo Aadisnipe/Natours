@@ -33,3 +33,19 @@ process.on('unhandledRejection', (err) => {
     process.exit(1);
   });
 });
+
+process.on('SIGTERM', () => {
+  console.log('Server Closing');
+  server.close(() => {
+    console.log('Server is Closed 🫡');
+    process.exit(0);
+  });
+});
+process.on('SIGINT', () => {
+  console.log('Interrupted');
+
+  server.close(() => {
+    console.log('Server is Closed 🫡');
+    process.exit(0);
+  });
+});
