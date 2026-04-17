@@ -7,7 +7,6 @@ const stripe = Stripe(
 export const bookTour = async (tourId) => {
   //get session from session api
   try {
-    console.log(tourId);
     const stripe = Stripe(
       'pk_test_51TMCc2KmBkNBwn4paMey1plxnZtTgkPoXl7u9S22G0xmV2yevUZw2YtTFi9gOwzvWTJOo3k3qVvlEUYnBBMBjC5o00Bs2ix24r',
     );

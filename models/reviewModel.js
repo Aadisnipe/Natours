@@ -70,7 +70,6 @@ reviewSchema.post('save', function () {
 //for Updating and Deleting Review Update in Tour
 reviewSchema.pre(/^findOneAnd/, async function () {
   this.r = await this.clone().findOne();
-  console.log(this.r);
 });
 
 //Now Updating

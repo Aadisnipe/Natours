@@ -148,7 +148,6 @@ tourSchema.pre('save', function () {
 
 // Documnet Middleware(post) : runs after saving the document in the Db as Post HOOK
 tourSchema.post('save', (doc, next) => {
-  console.log('This is post--->', doc);
   next();
 });
 

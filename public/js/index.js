@@ -62,7 +62,6 @@ if (updatePass) {
 
 if (bookbtn) {
   bookbtn.addEventListener('click', (e) => {
-    console.log('clicked');
     e.target.textContent = 'Processing...';
     const { tourId } = e.target.dataset;
     bookTour(tourId);

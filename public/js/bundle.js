@@ -12941,7 +12941,6 @@ var login = exports.login = /*#__PURE__*/function () {
           });
         case 1:
           res = _context.v;
-          console.log(res);
           if (res.data.status === 'success') {
             (0, _alert.showAlert)('success', 'Logged In Successfully!');
             window.setTimeout(function () {
@@ -13245,7 +13244,6 @@ var bookTour = exports.bookTour = /*#__PURE__*/function () {
       while (1) switch (_context.p = _context.n) {
         case 0:
           _context.p = 0;
-          console.log(tourId);
           _stripe = Stripe('pk_test_51TMCc2KmBkNBwn4paMey1plxnZtTgkPoXl7u9S22G0xmV2yevUZw2YtTFi9gOwzvWTJOo3k3qVvlEUYnBBMBjC5o00Bs2ix24r');
           _context.n = 1;
           return (0, _axios.default)("/api/v1/bookings/checkout-session/".concat(tourId));
@@ -13494,7 +13492,6 @@ if (updatePass) {
 }
 if (bookbtn) {
   bookbtn.addEventListener('click', function (e) {
-    console.log('clicked');
     e.target.textContent = 'Processing...';
     var tourId = e.target.dataset.tourId;
     (0, _stripe.bookTour)(tourId);
@@ -13525,7 +13522,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51209" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52689" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
